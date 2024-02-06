@@ -1,5 +1,5 @@
 
-# Senior Front-End Engineer Take-Home Project
+# 👩‍🚀 Senior Front-End Engineer Take-Home Project
 ## 🚀 Image Grid with Angular
 
 Hello! 👋
