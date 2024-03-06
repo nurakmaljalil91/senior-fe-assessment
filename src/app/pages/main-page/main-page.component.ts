@@ -17,10 +17,35 @@ export class MainPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.imageService.getImagesUrl().subscribe(images => {
-      this.images = images
-      console.log(this.images);
+      for(let image of images.split(/[\r\n]+/)) {
+        this.images.push(image);
+      }
     });
   }
 
+  getPaginatedImages(): string[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.images.slice(start, end);
+  }
 
+  nextPage(): void {
+    this.currentPage++;
+  }
+
+  previousPage(): void {
+    this.currentPage--;
+  }
+
+  get isPreviousDisabled(): boolean {
+    return this.currentPage === 1;
+  }
+
+  get isNextDisabled(): boolean {
+    return this.currentPage === Math.ceil(this.images.length / this.itemsPerPage);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.images.length / this.itemsPerPage);
+  }
 }
