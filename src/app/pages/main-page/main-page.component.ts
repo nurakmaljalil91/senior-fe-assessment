@@ -6,19 +6,26 @@ import {ImageService} from "../../services/image.service";
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css']
 })
-export class MainPageComponent implements OnInit{
+export class MainPageComponent implements OnInit {
 
   images: string[] = [];
+  paginatedImages: string[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 8;
 
   constructor(private imageService: ImageService) {
   }
 
   ngOnInit(): void {
-    this.imageService.getImagesUrl().subscribe(images => {
-      for(let image of images.split(/[\r\n]+/)) {
-        this.images.push(image);
+    this.imageService.getImagesUrl().subscribe({
+      next: (images) => {
+        for (let image of images.split(/[\r\n]+/)) {
+          this.images.push(image);
+        }
+        this.paginatedImages = this.getPaginatedImages();
+      },
+      error: (err) => {
+        console.error(err);
       }
     });
   }
