@@ -1,1 +1,6 @@
-<p>task-page works!</p>
+<div
+  class="relative">
+  <img [ngSrc]="selectedImage" alt="image" fill style="object-fit: contain;position: inherit" priority>
+  <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition-opacity duration-300"></div>
+  <div>{{selectedImage}}</div>
+</div>

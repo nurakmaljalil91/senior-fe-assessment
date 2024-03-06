@@ -8,7 +8,6 @@ import {ImageService} from "../../services/image.service";
 })
 export class MainPageComponent implements OnInit {
 
-  images: string[] = [];
   paginatedImages: string[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 8;
@@ -17,15 +16,11 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.imageService.getImagesUrl().subscribe({
+    this.imageService.loadImages();
+
+    this.imageService.images.subscribe({
       next: (images) => {
-        for (let image of images.split(/[\r\n]+/)) {
-          this.images.push(image);
-        }
-        this.paginatedImages = this.getPaginatedImages();
-      },
-      error: (err) => {
-        console.error(err);
+        this.paginatedImages = images;
       }
     });
   }
@@ -33,7 +28,7 @@ export class MainPageComponent implements OnInit {
   getPaginatedImages(): string[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.images.slice(start, end);
+    return this.imageService.getImages().slice(start, end);
   }
 
   nextPage(): void {
@@ -49,10 +44,22 @@ export class MainPageComponent implements OnInit {
   }
 
   get isNextDisabled(): boolean {
-    return this.currentPage === Math.ceil(this.images.length / this.itemsPerPage);
+    return this.currentPage === Math.ceil(this.imageService.getImages().length / this.itemsPerPage);
   }
 
   get totalPages(): number {
-    return Math.ceil(this.images.length / this.itemsPerPage);
+    return Math.ceil(this.imageService.getImages().length / this.itemsPerPage);
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+  }
+
+  setImageToTaskPage(image: string): void {
+    this.imageService.setSelectedImage(image);
+
+    setTimeout(() => {
+      window.open('/task', '_blank')
+    }, 1000);
   }
 }
