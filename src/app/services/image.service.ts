@@ -11,9 +11,7 @@ export class ImageService {
 
   public readonly images: Observable<string[]> = this._images.asObservable();
 
-  private _selectedImage: BehaviorSubject<string> = new BehaviorSubject<string>('https://vst-test-images.s3.ap-southeast-1.amazonaws.com/sfe-images/00610.png');
-
-  public readonly selectedImage: Observable<string> = this._selectedImage.asObservable();
+  private _isImageSelected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
   }
@@ -38,9 +36,11 @@ export class ImageService {
     return this._images.getValue();
   }
 
-
   setSelectedImage(imageUrl: string): void {
-    this._selectedImage.next(imageUrl);
+    if (this._isImageSelected.getValue()) return;
+    localStorage.setItem('selectedImage', imageUrl);
+    this._isImageSelected.next(true);
     this._images.getValue().splice(this._images.getValue().indexOf(imageUrl), 1);
+    window.open('/task', '_blank');
   }
 }

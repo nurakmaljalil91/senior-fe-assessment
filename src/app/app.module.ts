@@ -7,12 +7,14 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { TaskPageComponent } from './pages/task-page/task-page.component';
 import {HttpClientModule} from "@angular/common/http";
 import {NgOptimizedImage} from "@angular/common";
+import { ImageModalComponent } from './components/image-modal/image-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    TaskPageComponent
+    TaskPageComponent,
+    ImageModalComponent
   ],
   imports: [
     BrowserModule,

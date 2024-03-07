@@ -11,6 +11,8 @@ export class MainPageComponent implements OnInit {
   paginatedImages: string[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 8;
+  showModal: boolean = false;
+  selectedImageUrl: string = '';
 
   constructor(private imageService: ImageService) {
   }
@@ -57,9 +59,14 @@ export class MainPageComponent implements OnInit {
 
   setImageToTaskPage(image: string): void {
     this.imageService.setSelectedImage(image);
+  }
 
-    setTimeout(() => {
-      window.open('/task', '_blank')
-    }, 1000);
+  openModal(imageUrl: string): void {
+    this.selectedImageUrl = imageUrl;
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
   }
 }

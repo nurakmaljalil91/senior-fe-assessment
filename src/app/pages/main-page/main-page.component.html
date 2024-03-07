@@ -5,7 +5,7 @@
       *ngFor="let image of getPaginatedImages()"
       class="border border-gray-300 rounded-md overflow-hidden">
       <div
-        (click)="setImageToTaskPage(image)"
+        (click)="openModal(image)"
         class="flex flex-1 flex-col transition-transform duration-300 ease-in-out transform hover:scale-105 relative hover:cursor-pointer">
         <img [ngSrc]="image" alt="image" fill style="object-fit: contain;position: inherit" priority>
         <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition-opacity duration-300"></div>
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div id="pagination" class="mt-8">
+  <div id="pagination" class="flex-1 text-center mt-8">
     <button
       [disabled]="isPreviousDisabled"
       (click)="previousPage()"
@@ -21,12 +21,19 @@
     >
       Previous
     </button>
-    <span class="bg-gray-300 text-gray-800 font-bold py-2 px-4">{{currentPage}}</span>
+<!--    <span-->
+<!--      *ngFor="let page of [].constructor(totalPages); let i = index"-->
+<!--      class="bg-gray-300 text-gray-800 font-bold py-2 px-4">-->
+<!--{{ i + 1 }}-->
+<!--    </span>-->
     <button
       [disabled]="isNextDisabled"
       (click)="nextPage()"
-      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
     >Next
     </button>
   </div>
 </div>
+
+<app-image-modal [imageUrl]="selectedImageUrl" [showModal]="showModal" (closeModal)="closeModal()"></app-image-modal>
+

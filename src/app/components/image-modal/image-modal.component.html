@@ -1,0 +1,16 @@
+<div
+  *ngIf="showModal"
+  (click)="close()"
+  class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
+  <div class="bg-white p-6 rounded-lg shadow-md">
+    <img [ngSrc]="imageUrl" alt="Full Image" class="max-w-full max-h-full" width="800" height="800">
+    <button (click)="assignToTask()"
+            class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+      Assign to Task
+    </button>
+    <button (click)="close()"
+            class="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-5">
+      Close
+    </button>
+  </div>
+</div>
